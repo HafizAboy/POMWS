@@ -1,0 +1,37 @@
+server:
+  port: ${PORT:8803}
+
+spring:
+  application:
+    name: springboot-rabbitmq-order
+  zipkin:
+    base-url: http://localhost:9411/
+    
+eureka:  
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8801}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+      
+ribbon:
+  eureka:
+    enabled: true
+
+datasource:
+  sampleapp:
+    url: jdbc:mysql://localhost:3306/rabbitmq_order?allowPublicKeyRetrieval=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Kuala_Lumpur&zeroDateTimeBehavior=convertToNull&useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: 
+    #url: jdbc:mysql://rabbitmqordermysqldb:3306/rabbitmq_order?allowPublicKeyRetrieval=true&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Kuala_Lumpur&zeroDateTimeBehavior=convertToNull&useUnicode=yes&characterEncoding=UTF-8
+    #username: sa
+    #password: password
+    driverClassName: com.mysql.jdbc.Driver
+    defaultSchema:
+    maxPoolSize: 20
+    hibernate:
+      hbm2ddl.method: update
+      show_sql: false
+      format_sql: true
+      dialect: org.hibernate.dialect.MySQL5Dialect

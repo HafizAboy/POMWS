@@ -1,0 +1,13 @@
+server:  
+  port: ${PORT:8801}
+    
+eureka:
+  datacenter: Main
+  environment: Dev
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    enableSelfPreservation: false  

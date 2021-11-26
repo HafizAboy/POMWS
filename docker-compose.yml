@@ -1,0 +1,78 @@
+version: "3.8"
+services:
+
+  rabbitmqordermysqldb:
+    image: mysql:8
+    networks:
+      - springboot-rabbitmq-docker
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=rabbitmq_order
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=password
+
+  rabbitmqproductmysqldb:
+    image: mysql:8
+    networks:
+      - springboot-rabbitmq-docker
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=rabbitmq_product
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=password
+      
+  discovery-service:
+    image: springboot-discovery-service
+    container_name: springboot-discovery-service-container
+    ports:
+      - "8801:8801"
+    networks:
+      - springboot-rabbitmq-docker
+
+  gateway-service:
+    image: springboot-gateway-service
+    container_name: springboot-gateway-service-container
+    ports:
+      - "8802:8802"
+    depends_on:
+      - discovery-service
+    networks:
+      - springboot-rabbitmq-docker
+      
+  order-service:
+    image: springboot-rabbitmq-order
+    container_name: springboot-rabbitmq-order-container
+    ports:
+      - "8803:8803"
+    depends_on:
+      - rabbitmqordermysqldb
+      - discovery-service
+      - gateway-service
+    networks:
+      - springboot-rabbitmq-docker
+
+  product-service:
+    image: springboot-rabbitmq-product
+    container_name: springboot-rabbitmq-product-container
+    ports:
+      - "8804:8804"
+    depends_on:
+      - rabbitmqproductmysqldb
+      - discovery-service
+      - gateway-service
+    networks:
+      - springboot-rabbitmq-docker
+
+  currency-converter-service:
+    image: springboot-currency-converter
+    container_name: springboot-currency-converter-container
+    ports:
+      - "8805:8805"
+    depends_on:
+      - discovery-service
+      - gateway-service
+    networks:
+      - springboot-rabbitmq-docker
+
+networks:
+  springboot-rabbitmq-docker:

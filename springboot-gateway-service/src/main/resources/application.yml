@@ -1,0 +1,29 @@
+server:  
+  port: ${PORT:8802}
+
+zuul:
+  prefix: /api
+  sensitiveHeaders:
+  routes:
+    order: 
+      path: /order/**
+      serviceId: springboot-rabbitmq-order
+      url: http://localhost:8803
+    product: 
+      path: /product/**
+      serviceId: springboot-rabbitmq-product
+      url: http://localhost:8804
+    curconverter: 
+      path: /curconverter/**
+      serviceId: springboot-currency-converter
+      url: http://localhost:8805
+
+ribbon:
+  eureka:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8801/eureka/
+    registerWithEureka: false

@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: springboot-currency-converter
+  zipkin:
+    base-url: http://localhost:9411/
+    
+eureka:  
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_URL:http://localhost:8801}/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+      
+ribbon:
+  eureka:
+    enabled: true

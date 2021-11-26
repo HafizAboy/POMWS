@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rabbitmq</groupId>
+	<artifactId>POMWS</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>POMWS</name>
+	<description>Springboot Microservices Application - using Springboot, Spring Cloud Technologies (Eureka server, Zuul gateway, Feign proxy), Maven, JPA, MYSQL, ZIPKIN and RabbitMQ</description>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.4.8</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>2020.0.4</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<properties>
+		<java.version>11</java.version>
+	</properties>
+
+	<modules>
+		<module>springboot-rabbitmq-order</module>
+		<module>springboot-rabbitmq-product</module>
+		<module>springboot-discovery-service</module>
+		<module>springboot-gateway-service</module>
+		<module>springboot-currency-converter</module>
+	</modules>
+	
+</project>
